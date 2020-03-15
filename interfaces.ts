@@ -1,25 +1,117 @@
-interface masterCharacter{
-  code: string,
-  name: string,
-  termSettings: character[],
+// 小説
+interface INovel {
+	keyCode: string,
+	title: string,
+	catchCopy?: string,
+	storyList?: IStory[],
 }
-interface character{
-  code: string,
+
+// ストーリー
+interface IStory {
+	keyCode: string,
+	seq: number,
+	title: string,
+	descriptionList?: IDescription[], 
+	impressionList?: IImpression[],
+	relation?: IRelationKeys,
+	blockList?: IBlock[],
+}
+
+// ブロック
+interface IBlock {
+	keyCode: string,
+	seq: number,
+	title: string,
+	blockType: number,
+	descriptionList?: IDescription[],
+	impressionList?: IImpression[],
+	relation?: IRelationKeys,
+	sceneList?: IScene[],
+}
+
+// シーン
+interface IScene {
+	keyCode: string,
+	seq: number,
+	title: string,
+	sceneType: number,
+	descriptionList?: IDescription[],
+	impressionList?: IImpression[],
+	relation?: IRelationKeys,
+	targetDescriptionKeyList?: string[], 
+}
+
+// 子要素
+// 概要オブジェクト
+interface IDescription {
+	keyCode: string,
+	text: string,
+}
+
+// 読み手に与えたい印象オブジェクト
+interface IImpression {
+	keyCode: string,
+	text: string,
+	wasSelfChecked: boolean,
+	checkedBy?: string,
+}
+
+// 関係するオブジェクトのキーリスト
+interface IRelationKeys {
+	chracterKeyList?: string[],
+	itemKeyList?: string[],
+	placeKeyList?:string[],
+	organizationKeyList?: string[],
+}
+
+// オブジェクトのマスターリスト
+interface IMasterObj {
+	characterList?: ICharacter[],
+	itemList?: IItem[],
+	placeList?: IPlace[],
+	organizationList?: IOrganization[],
+}
+
+// キャラクターオブジェクト
+interface ICharacter {
+	keyCode: string,
+	uniqueName: string,
+	termSettings?: ITermCharacter[],
+}
+
+// 時期別キャラクター設定
+interface ITermCharacter {
+  keyCode: string,
   termName: string,
-  description: string,
-  visual: charaVisual,
-  personality: personality,
-  skills: skill[],
+  description?: IDescription,
+  visual?: IVisual,
+  personality?: IPersonality,
+  skillList?: ISkill[],
 }
-interface charaVisual{
-  height: number,
-  weight: number,
+
+// ビジュアル
+interface IVisual {
+  height?: number,
+  weight?: number,
+  partsList?: IPart[],
+  imageUrl?: string,
 }
-interface personality{
+
+// 部位
+interface IPart {
+  partType: number,
+  styleText: string,
+}
+
+// 性格
+interface IPersonality {
   habitEndWord: string
 }
-interface skill{
+
+// スキル
+interface ISkill {
   code: string,
   name: string,
   description: string,
 }
+
